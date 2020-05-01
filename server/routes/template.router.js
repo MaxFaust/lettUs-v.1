@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 // POST route to DB
-router.post('/:id', (req, res) => {
+router.post('/', (req, res) => {
 
     const sqlText = `INSERT INTO "user_info" ("user_id", "farm_name", "farm_location", "brief_description", "full_description", "share_information", "drop_name", "drop_location", "images" )
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`
@@ -18,7 +18,7 @@ router.post('/:id', (req, res) => {
         })
 });
 
-router.get('/user/info', (req, res) => {
+router.get('/', (req, res) => {
     // When you fetch all things in these GET routes, strongly encourage ORDER BY
     // so that things always come back in a consistent order 
     const sqlText = `SELECT * FROM user_info ORDER BY farm_name DESC;`;

@@ -60,8 +60,8 @@ class UserInfo extends Component {
                         <label>Share information: </label>
                         <textarea  value={this.state.user.shareInformation} onChange={(event) => this.handleChangeFor(event, 'shareInformation')}/><br/>
                         <label>Drop-off locations: </label>
-                        <input value={this.state.user.dropinfo} onChange={(event) => this.handleChangeFor(event, 'dropName')}/><br/>
-                        <input value={this.state.user.dropinfo} onChange={(event) => this.handleChangeFor(event, 'dropLocation')}/><br/>
+                        <input placeholder="drop off name" value={this.state.user.dropinfo} onChange={(event) => this.handleChangeFor(event, 'dropName')}/><br/>
+                        <input placeholder="drop off address" value={this.state.user.dropinfo} onChange={(event) => this.handleChangeFor(event, 'dropLocation')}/><br/>
                         {/* <table className="info-tbl">
                             <tr>
                                 <th>Drop-off name:</th>
@@ -77,6 +77,7 @@ class UserInfo extends Component {
                             </tr>
                             
                         </table> */}
+                        <label>Images:</label>
                         <input value={this.state.user.images} onChange={(event) => this.handleChangeFor(event, 'images')} /><br/>
                     <input type="submit" value="Submit" />
                 </form>

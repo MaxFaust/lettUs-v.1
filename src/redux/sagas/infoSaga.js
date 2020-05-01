@@ -2,9 +2,8 @@ import axios from 'axios';
 import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 
 function* postInfo(action) {
-
     try {
-        yield axios.post(`/user/info/${action.payload.userId}`, action.payload);
+        yield axios.post(`/api/farms`, action.payload);
         console.log('Posting data to database:', action.payload);
         yield put({type: 'FETCH_FARMS'})
     } catch (error) {
