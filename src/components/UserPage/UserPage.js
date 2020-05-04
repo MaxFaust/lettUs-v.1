@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import UserInfo from '../UserInfo/UserInfo'
+import UserForm from '../UserForm/UserForm'
 
 
 // this could also be written with destructuring parameters as:
@@ -12,7 +12,7 @@ const UserPage = (props) => (
       Welcome, { props.user.username }!
     </h1>
     <p>Your ID is: {props.user.id}</p>
-      <UserInfo/>
+      <UserForm/>
   </div>
 );
 
