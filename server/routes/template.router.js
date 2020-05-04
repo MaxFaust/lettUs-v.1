@@ -8,7 +8,7 @@ router.post('/', (req, res) => {
 
     const sqlText = `INSERT INTO "user_info" ("user_id", "farm_name", "farm_location", "brief_description", "full_description", "share_information", "drop_name", "drop_location", "images" )
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`
-
+    //TODO- add authentication
     pool.query(sqlText, [req.body.userId, req.body.farmName, req.body.farmLocation, req.body.briefDescription, req.body.fullDescription, req.body.shareInformation, req.body.dropName, req.body.dropLocation, req.body.images])
         .then((response) => {
             res.sendStatus(200);
@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
     const sqlText = `SELECT * FROM user_info ORDER BY farm_name DESC;`;
     pool.query(sqlText)
         .then((result) => {
-            console.log(`Got stuff back from the database`, result);
+            console.log(`Recieved from database`, result);
             res.send(result.rows);
         })
         .catch((error) => {

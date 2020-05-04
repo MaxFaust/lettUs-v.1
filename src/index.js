@@ -25,6 +25,7 @@ const store = createStore(
   rootReducer,
   // adds all middleware to our project including saga and logger
   applyMiddleware(...middlewareList),
+
 );
 
 // tells the saga middleware to use the rootSaga

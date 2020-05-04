@@ -5,7 +5,7 @@ function* postInfo(action) {
     try {
         yield axios.post(`/api/farms`, action.payload);
         console.log('Posting data to database:', action.payload);
-        yield put({type: 'FETCH_FARMS'})
+        
     } catch (error) {
         console.log('Error with user info input:', error);
     }
