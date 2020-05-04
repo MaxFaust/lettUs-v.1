@@ -7,13 +7,7 @@ const infoReducer = (state = [], action) => {
       default:
         return state;
   }
-  
-  //   if (action.type === `SET_FARMS`) {
-  //           return  action.payload;
-  //   } else {
-  //   return state;
-  // }
-}
+};
 
 
 export default infoReducer;

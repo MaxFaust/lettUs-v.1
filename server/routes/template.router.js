@@ -8,8 +8,9 @@ router.post('/', (req, res) => {
 
     const sqlText = `INSERT INTO "user_info" ("user_id", "farm_name", "farm_location", "brief_description", "full_description", "share_information", "drop_name", "drop_location", "images" )
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`
+    const queryText = [req.body.userId, req.body.farmName, req.body.farmLocation, req.body.briefDescription, req.body.fullDescription, req.body.shareInformation, req.body.dropName, req.body.dropLocation, req.body.images];
     //TODO- add authentication
-    pool.query(sqlText, [req.body.userId, req.body.farmName, req.body.farmLocation, req.body.briefDescription, req.body.fullDescription, req.body.shareInformation, req.body.dropName, req.body.dropLocation, req.body.images])
+    pool.query(sqlText, queryText)
         .then((response) => {
             res.sendStatus(200);
         }).catch((error) => {
@@ -32,5 +33,18 @@ router.get('/', (req, res) => {
             res.sendStatus(500); // Good server always responds
         })
 })
+
+// router.get('/', (req, res) => {
+//     const sqlText = `SELECT * FROM user_info WHERE user_id = user.id;`;
+//     pool.query(sqlText)
+//         .then((result) => {
+//             console.log(`Recieved farm database`, result);
+//             res.send(result.rows);
+//         })
+//         .catch((error) => {
+//             console.log(`Error making database query ${sqlText}`, error);
+//             res.sendStatus(500); // Good server always responds
+//         })
+// })
 
 module.exports = router;
