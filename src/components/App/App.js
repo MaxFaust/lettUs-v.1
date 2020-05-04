@@ -16,7 +16,9 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import HomePage from '../HomePage/HomePage';
 import InfoPage from '../InfoPage/InfoPage';
-import UserPage from '../UserPage/UserPage'
+import UserPage from '../UserPage/UserPage';
+import FarmPage from '../FarmPage/FarmPage';
+
 
 
 
@@ -50,6 +52,11 @@ class App extends Component {
               exact
               path="/home"
               component={HomePage}
+            />
+            <Route
+            exact
+            path="/api/farm"
+            component={FarmPage}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}

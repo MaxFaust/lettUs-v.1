@@ -71,21 +71,19 @@ class UserInfo extends Component {
                             <tr>
                                 <th>Drop-off name:</th>
                                 <th>Drop-off location</th>
-                                <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <thead>
                         <tr>
-                            <td>{this.state.user.dropinfo}</td>
-                            <td></td>
-                            <td>Edit</td>
-                            <td>Delete</td>
+                            <td>{this.state.user.dropName}</td>
+                            <td>{this.state.user.dropLocation}</td>
+                            <td onClick={this.handleDelete}>Delete</td>
                         </tr>
                         </thead>
                     </table>
                     <label>Images:</label>
-                    <input value={this.state.user.images} onChange={(event) => this.handleChangeFor(event, 'images')} /><br />
+                    <input type="file" value={this.state.user.images} onChange={(event) => this.handleChangeFor(event, 'images')}/><br />
                     <input type="submit" value="Submit" />
                 </form>
             </div>

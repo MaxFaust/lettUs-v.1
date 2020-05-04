@@ -5,14 +5,13 @@ function* postInfo(action) {
     try {
         yield axios.post(`/api/farms`, action.payload);
         console.log('Posting data to database:', action.payload);
-        
     } catch (error) {
         console.log('Error with user info input:', error);
     }
 };
 
 function* fetchFarms() {
-    console.log('HIT');
+    console.log('HIT farms');
     try {
         const elementsResponse = yield axios.get('/api/farms');
         console.log('elementsResponse:', elementsResponse);
@@ -20,11 +19,11 @@ function* fetchFarms() {
     } catch (error) {
         console.log('error fetching elements', error);
     }
-}
+};
 
 function* infoSaga() {
     yield takeEvery('POST_INFO', postInfo);
     yield takeLatest('FETCH_FARMS', fetchFarms);
-}
+};
 
 export default infoSaga;
