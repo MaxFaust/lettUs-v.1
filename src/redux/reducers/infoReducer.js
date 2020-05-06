@@ -1,5 +1,5 @@
 const infoReducer = (state = [], action) => {
-  console.log('Hit', state)
+  // console.log('Hit', state)
    //called from componentDidMount on HomePage, gets everything in user_info database
   switch (action.type) {
     case "SET_FARMS":

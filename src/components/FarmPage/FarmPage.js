@@ -11,7 +11,7 @@ class FarmPage extends Component {
 
             {this.props.reduxState.info.map((item) => {
                     return (
-                        <Card onClick={this.handleClick}>
+                        <Card>
 
                             <Card.Title>{item.farm_name}</Card.Title>
                             <Card.Subtitle>{item.farm_location}</Card.Subtitle>
