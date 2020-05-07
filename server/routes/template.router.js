@@ -41,8 +41,7 @@ router.post('/', (req, res) => {
                             res.sendStatus(500);
                         }); // error query 3
                         
-                })
-                .catch((error) => {
+                }).catch((error) => {
                     console.log('drop_info query error:', error);
                     res.sendStatus(500);
                 }); // end query 2
@@ -51,13 +50,12 @@ router.post('/', (req, res) => {
             console.log('user_info query error:', error);
             res.sendStatus(500); 
         }) // end query 1
-
 }); // end ROUTE
 
 router.get('/all', (req, res) => {
     // When you fetch all things in these GET routes, strongly encourage ORDER BY
     // so that things always come back in a consistent order 
-    const sqlText = `SELECT * FROM user_info ORDER BY farm_name ASC;`;
+    const sqlText = `SELECT * FROM user_info ORDER BY farm_name DESC;`;
     pool.query(sqlText)
         .then((result) => {
             console.log(`Recieved from database:`, result);

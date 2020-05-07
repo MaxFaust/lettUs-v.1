@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 
 class UserInfo extends Component {
@@ -19,20 +18,9 @@ class UserInfo extends Component {
     };
 
     componentDidMount() {
-        this.getInfo();
-    }
-
-
-    getInfo = () => {
-        axios.get(`/api/info`)
-            .then((response) => {
-                this.setState({ user: response.data[0] });
-                console.log(`componentDidMount returns: ${response.data}`);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
+        this.props.dispatch({ type: 'GET_INFO', payload: this.props.user.id})
+        console.log(`user id sending to saga: ${this.props.user.id}`)
+    };
 
     handleChangeFor = (event, propertyName) => {
         this.setState({
@@ -57,14 +45,17 @@ class UserInfo extends Component {
     // Deletes drop info or image information from database
     handleDelete = (event) => {
         event.preventDefault();
-        this.props.dispatch({ type: 'DELETE_INFO', payload: this.state.user })
-    }
+        this.props.dispatch({ type: 'DELETE_INFO', payload: this.state.info })
+    };
 
     render() {
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
-                    <div class="form-group">
+                {/* User for testing user state */}
+                {JSON.stringify(this.state.user)}
+
+                {/* <form onSubmit={this.handleSubmit}>
+                    <div className="form-group">
                         <label>Farm name:</label>
                         <input value={this.state.user.farm_name} onChange={(event) => this.handleChangeFor(event, 'farm_name')} />
                         <label>Farm location:</label>
@@ -78,22 +69,24 @@ class UserInfo extends Component {
                         <label>Drop-off locations: </label>
                         <input placeholder="drop off name" value={this.state.user.drop_name} onChange={(event) => this.handleChangeFor(event, 'drop_name')} /><br />
                         <input placeholder="drop off address" value={this.state.user.drop_location} onChange={(event) => this.handleChangeFor(event, 'drop_location')} /><br />
-                        <table className="info-tbl">
-                            <thead>
-                                <tr>
-                                    <th>Drop-off name:</th>
-                                    <th>Drop-off location</th>
-                                    <th>Delete</th>
-                                </tr>
-                            </thead>
-                            <thead>
-                                <tr>
-                                    <td>{this.state.user.dropName}</td>
-                                    <td>{this.state.user.dropLocation}</td>
-                                    <td onClick={this.handleDelete}>Delete</td>
-                                </tr>
-                            </thead>
-                        </table>
+
+                        {this.state}
+                         <table className="info-tbl">
+                             <thead>
+                                 <tr>
+                                     <th>Drop-off name:</th>
+                                     <th>Drop-off location</th>
+                                     <th>Delete</th>
+                                 </tr>
+                             </thead>
+                             <thead>
+                                 <tr>
+                                     <td>{item.drop_name}</td>
+                                     <td>{item.drop_location}</td>
+                                     <td onClick={this.handleDelete}>Delete</td>
+                                 </tr>
+                             </thead>
+                         </table>
                         <label>Images:</label>
                         <input type="file" value={this.state.user.images} onChange={(event) => this.handleChangeFor(event, 'images')} /><br />
                         <table className="info-tbl">
@@ -105,19 +98,18 @@ class UserInfo extends Component {
                             </thead>
                             <thead>
                                 <tr>
-                                    <td>{this.state.user.images}</td>
+                                    <td>{item.images}</td>
                                     <td onClick={this.handleDelete}>Delete</td>
                                 </tr>
                             </thead>
                         </table>
                         <input type="submit" value="Submit" />
                     </div>
-                </form>
+                </form> */}
             </div>
-
-        );
+        )
     }
-}
+};
 
 const mapReduxStateToProps = (reduxState) => ({
     user: reduxState.user

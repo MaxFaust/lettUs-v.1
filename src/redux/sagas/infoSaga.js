@@ -24,7 +24,7 @@ function* fetchFarms() {
 function* deleteInfo() {
     console.log('HIT farms');
     try {
-        const elementsResponse = yield axios.delete('/api/farms');
+        const elementsResponse = yield axios.delete('/api/farms/farm');
         console.log('elementsResponse:', elementsResponse);
         yield put({ type: 'SET_FARMS', payload: elementsResponse.data });
     } catch (error) {
@@ -33,21 +33,28 @@ function* deleteInfo() {
 };
 
 //Sends request to database for individual farm data
-function* getFarm() {
-    console.log('HIT getFarm')
+function* getInfo(action) {
+    console.log(`HIT getFarm with:`, action.payload);
+
     try {
-        const elementsResponse = yield axios.get('/api/info');
-        yield put({ type: 'SET_FARMS', payload: elementsResponse.data})
+        const elementsResponse = yield axios.get(`/api/info/${action.payload}`);
+        console.log('Get user info elementsResponse:', elementsResponse);
+        yield put({ type: 'SET_INFO', payload: elementsResponse.data})
     } catch (error) {
         console.log('error fetching elements', error);
     }
 };
 
 function* infoSaga() {
+    //POST first time user info
     yield takeEvery('POST_INFO', postInfo);
+    //GET user profile information
+    yield takeEvery('GET_INFO', getInfo);
+    //DELETE drop info and/or images
     yield takeEvery('DELETE_INFO', deleteInfo);
+    //GET all farm data from database
     yield takeLatest('FETCH_FARMS', fetchFarms);
-    yield takeEvery('GET_FARM', getFarm);
+
 };
 
 export default infoSaga;
