@@ -24,9 +24,9 @@ GROUP BY user_info.id;`;
     console.log(`req.params.id: ${req.params.id}`)
     pool.query(sqlText, [queryText])
         .then((results) => {
-            console.log(`User data from database: ${results}`);
-            res.send(results.rows);
-                })
+            console.log(`User data from database: ${results.rows}`);
+            res.send(results.rows[0]);
+        })
         .catch((error) => {
             console.log(`Error making user_info query: ${sqlText}`, error);
             res.sendStatus(500); 

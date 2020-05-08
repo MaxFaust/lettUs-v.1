@@ -26,7 +26,7 @@ function* deleteInfo() {
     try {
         const elementsResponse = yield axios.delete('/api/farms/farm');
         console.log('elementsResponse:', elementsResponse);
-        yield put({ type: 'SET_FARMS', payload: elementsResponse.data });
+        // yield put({ type: 'SET_FARMS', payload: elementsResponse.data });
     } catch (error) {
         console.log('error fetching elements', error);
     }
@@ -38,7 +38,7 @@ function* getInfo(action) {
 
     try {
         const elementsResponse = yield axios.get(`/api/info/${action.payload}`);
-        console.log('Get user info elementsResponse:', elementsResponse);
+        console.log('Get user info elementRes:', elementsResponse);
         yield put({ type: 'SET_INFO', payload: elementsResponse.data})
     } catch (error) {
         console.log('error fetching elements', error);

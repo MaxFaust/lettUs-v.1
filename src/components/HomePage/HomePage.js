@@ -13,12 +13,14 @@ class HomePage extends Component {
     };
 
     handleClick = () => {
-        this.props.dispatch({ type: 'GET_FARM', payload: this.reduxState});
         this.props.history.push('/api/farm');
     };
 
     render() {
         return (
+            // <>
+            // {JSON.stringify(this.props.user)};
+            // </>
             // Loops over reduxState to render info from the database onto cards
             <CardColumns>
                 {this.props.reduxState.info.map((item) => {

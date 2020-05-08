@@ -7,7 +7,7 @@ class FarmPage extends Component {
     render() { 
         return (  
             <>
-                {JSON.stringify(this.props.reduxState)}
+                {/* {JSON.stringify(this.props.reduxState)} */}
 
             {this.props.reduxState.info.map((item) => {
                     return (
