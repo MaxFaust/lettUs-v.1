@@ -1,10 +1,10 @@
 const infoReducer = (state = [], action) => {
-  console.log('infoReducer has:', action.payload)
   switch (action.type) {
-    case "SET_FARMS":
+    case "SET_FARM_INFO":
+      console.log('infoReducer action.payload:', action.payload)
       return action.payload;
-    case "SET_INFO":
-      return action.payload;
+    case "SET_THIS_FARM":
+      return [action.payload];
       default:
         return state;
   }

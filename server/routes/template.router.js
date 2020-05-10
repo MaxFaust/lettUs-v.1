@@ -4,33 +4,33 @@ const router = express.Router();
 
 
 // POST user information to DB
-router.post('/', (req, res) => {
+router.put('/', (req, res) => {
     //User information
-    const sqlText1 = `INSERT INTO "user_info" ("user_id", "farm_name", "farm_location", "brief_description", "full_description", "share_information")
-    VALUES ($1, $2, $3, $4, $5, $6)
-    RETURNING "id";`
-    const queryText = [req.body.userId, req.body.farm_name, req.body.farm_location, req.body.brief_description, req.body.full_description, req.body.share_information];
+    const sqlText1 = `
+                    UPDATE "user_info" 
+                    SET "farm_name" = $1, "farm_location" = $2, "brief_description" = $3, "full_description" = $4, "share_information" = $5
+                    WHERE "user_id" = $6;`
+    const queryText = [req.body.farm_name, req.body.farm_location, req.body.brief_description, req.body.full_description, req.body.share_information, req.body.userId];
     console.log('userId is:', req.body.userId)
     pool.query(sqlText1, queryText)
         .then((results) => {
             //POST drop-off name and location with unique user id
             console.log('user_info query results', results.rows);
-
-            let newUserId = results.rows[0].id;
-            const sqlText2 =   `INSERT INTO "drop_info" ("user_id", "drop_name", "drop_location")
-                                VALUES ($1, $2, $3)
-                                RETURNING "user_id"`
-            const queryText2 = [newUserId, req.body.dropName, req.body.dropLocation];
-            
+            const sqlText2 = `
+                            UPDATE "drop_info" 
+                            SET "drop_name" = $1, "drop_location" = $2
+                            WHERE "user_id" = $3;`
+            const queryText2 = [req.body.drop_name, req.body.drop_location, req.body.userId];
             pool.query(sqlText2, queryText2)
-                .then((result) => {
+                .then((results) => {
+                    res.sendStatus(200);
                     // query 2 results
-                    console.log('drop_info query result', result.rows);
-                    
-                    let newUserId = result.rows[0].id;
-                    const sqlText3 = `INSERT INTO "images" ("user_id", "image_url")
-                                        VALUES ($1, $2)`;
-                    const queryText3 = [newUserId, req.body.images];
+                    console.log('drop_info query result', results.rows);
+                    const sqlText3 = `
+                                    UPDATE "images" 
+                                    SET "image_url" = $1
+                                    WHERE "user_id" = $2;`
+                    const queryText3 = [req.body.images, req.body.userId];
                     
                     pool.query(sqlText3, queryText3)
                         .then(()=> {

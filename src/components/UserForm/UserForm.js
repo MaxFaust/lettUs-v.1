@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import DropInfo from '../UserForm/DropInfo'
 
 
 class UserInfo extends Component {
     state = {
         user: {
             userId: this.props.user.id,
-            farm_name: '',
-            farm_location: '',
-            brief_description: '',
-            full_description: '',
-            share_information: '',
-            images: '',
-            drop_name: '',
-            drop_location: ''
+            farm_name: this.props.info.farm_name,
+            farm_location: this.props.info.farm_location,
+            brief_description: this.props.info.brief_description,
+            full_description: this.props.info.full_description,
+            share_information: this.props.info.share_information,
+            images: this.props.info.images,
+            drop_name: this.props.info.drop_name,
+            drop_location: this.props.info.drop_location
         }
     };
 
@@ -37,57 +38,57 @@ class UserInfo extends Component {
         console.log('Dispatching info payload:', this.state.user);
 
         // Send inputs to infoSaga
-        this.props.dispatch({ type: 'POST_INFO', payload: this.state.user });
+        this.props.dispatch({ type: 'PUT_INFO', payload: this.state.user });
         //TODO- push user to individual farm view
         // this.props.history.push('/api/farm');
     };
 
     // Deletes drop info or image information from database
-    handleDelete = (event) => {
-        event.preventDefault();
-        this.props.dispatch({ type: 'DELETE_INFO', payload: this.state.info })
+
+
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.info.farm_name !== this.state.user.farm_name ) {
+          this.setState({
+              user: {
+                userId: this.props.user.id,
+                farm_name: this.props.info.farm_name || '',
+                farm_location: this.props.info.farm_location || '',
+                brief_description: this.props.info.brief_description || '',
+                full_description: this.props.info.full_description || '',
+                share_information: this.props.info.share_information || '',
+                images: this.props.info.images || '',
+                drop_name: this.props.info.drop_name || '',
+                drop_location: this.props.info.drop_location || ''
+                    }
+            });
+        }
     };
 
     render() {
-            
+        console.log('this.state.user is:', this.state.user );
+        console.log('this.props:', this.props)
             return (
             <div>
                 {/* User for testing user state */}
                 {/* {JSON.stringify(this.props.info)} */}
 
-                <form onSubmit={this.handleSubmit}>
-                    <div class="form-group">
-                        <label>Farm name:</label>
-                        <input class="form-control" value={this.props.info.farm_name} onChange={(event) => this.handleChangeFor(event, 'farm_name')} />
-                        <label>Farm location:</label>
-                        <input class="form-control" value={this.props.info.farm_location} onChange={(event) => this.handleChangeFor(event, 'farm_location')} />
-                        <label>Brief description:</label>
-                        <textarea class="form-control" value={this.props.info.brief_description} onChange={(event) => this.handleChangeFor(event, 'brief_description')} /><br />
-                        <label>Full description:</label>
-                        <textarea class="form-control" value={this.props.info.full_description} onChange={(event) => this.handleChangeFor(event, 'full_description')} /><br />
-                        <label>Share information: </label>
-                        <textarea class="form-control" value={this.props.info.share_information} onChange={(event) => this.handleChangeFor(event, 'share_information')} /><br />
-                        <label>Drop-off locations: </label>
-                        <input class="form-control" placeholder="drop off name" value={this.state.user.drop_name} onChange={(event) => this.handleChangeFor(event, 'drop_name')} /><br />
-                        <input class="form-control" placeholder="drop off address" value={this.state.user.drop_location} onChange={(event) => this.handleChangeFor(event, 'drop_location')} /><br />
-                        </div>
                 
-                         <table class="form-group table table-striped" >
-                             <thead class="thead-dark">
-                                 <tr>
-                                     <th scope="col">Drop-off name:</th>
-                                     <th scope="col">Drop-off location</th>
-                                     <th scope="col">Delete</th>
-                                 </tr>
-                             </thead>
-                             <thead class="thead-dark">
-                                 <tr>
-                                     <td>{this.props.info.drop_name}</td>
-                                     <td>{this.props.info.drop_location}</td>
-                                     <td onClick={this.handleDelete}>Delete</td>
-                                 </tr>
-                             </thead>
-                         </table>
+                <form onSubmit={this.handleSubmit}>
+                    <div class="form-group" >
+                        <label>Farm name:</label>
+                        <input type="text" class="form-control" defaultValue={this.state.user.farm_name} onChange={(event) => this.handleChangeFor(event, 'farm_name')} />
+                        <label>Farm location:</label>
+                        <input type="text" class="form-control" defaultValue={this.state.user.farm_location} onChange={(event) => this.handleChangeFor(event, 'farm_location')} />
+                        <label>Brief description:</label>
+                        <textarea type="text" class="form-control" defaultValue={this.state.user.brief_description} onChange={(event) => this.handleChangeFor(event, 'brief_description')} /><br />
+                        <label>Full description:</label>
+                        <textarea type="text" class="form-control" defaultValue={this.state.user.full_description} onChange={(event) => this.handleChangeFor(event, 'full_description')} /><br />
+                        <label>Share information: </label>
+                        <textarea type="text" class="form-control" defaultValue={this.state.user.share_information} onChange={(event) => this.handleChangeFor(event, 'share_information')} /><br />
+                        </div>
+                            <DropInfo/>
+                            
                         <label>Images:</label>
                         <input type="file" onChange={(event) => this.handleChangeFor(event, 'images')} /><br />
                         <table class="info-tbl table table-striped">
@@ -99,12 +100,12 @@ class UserInfo extends Component {
                             </thead>
                             <thead >
                                 <tr>
-                                    <td>{this.props.info.images}</td>
+                                    <td>{this.state.user.images}</td>
                                     <td onClick={this.handleDelete}>Delete</td>
                                 </tr>
                             </thead>
                         </table>
-                        <input type="submit" value="Submit" />
+                        <input type="submit" value="Submit" /> 
                     </form>
             </div>
         )

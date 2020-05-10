@@ -9,7 +9,7 @@ router.get(`/:id`, (req, res) => {
 	CASE WHEN count(i) = 0 THEN ARRAY[]::json[] ELSE array_agg(i.pictures) END AS pics
 FROM user_info 
 LEFT OUTER JOIN (  
-	SELECT user_id, json_build_object('id', drop_info.id, 'drop_name', drop_info.drop_name, 'drop_location', 					drop_info.drop_location) 
+	SELECT user_id, json_build_object('id', drop_info.id, 'drop_name', drop_info.drop_name, 'drop_location', drop_info.drop_location) 
 	as dropinfo
       FROM drop_info ORDER BY drop_info.id
       			) d on d.user_id = user_info.user_id

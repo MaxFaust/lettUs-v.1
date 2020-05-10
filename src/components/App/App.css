@@ -1,7 +1,8 @@
 body {
+    background-image: url("https://wallpaperaccess.com/full/803470.jpg");
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0px;
-    
+    background-attachment: fixed;
 }
 
 .alert {
